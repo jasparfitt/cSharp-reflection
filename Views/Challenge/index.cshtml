@@ -1,0 +1,39 @@
+﻿@model BookWyrm.ViewModels.ChallengeIndexViewModel
+@{
+    ViewBag.Title = "Challenge";
+}
+<h2>@Model.Challenge.Name</h2>
+<div class="challenge-description">
+    @Model.Challenge.Description
+</div>
+<div>
+    @foreach (var book in Model.Challenge.Books)
+    {
+        <div>
+            <input id="read-@book.BookId" type="submit" value="Completed" onclick="markAsRead(@book.BookId, '@Environment.GetEnvironmentVariable("URL")')"/>
+        </div>
+        <div>
+            @book.Order
+        </div>
+        <div>
+            <h4>@book.Book.Title</h4>
+            <div class="authors">
+                by
+                @foreach (var author in @book.Book.Authors)
+                {
+                    @author.Author.FirstName <text> </text> @author.Author.LastName
+
+                    if (author != @book.Book.Authors.Last())
+                    {
+                        <text> & </text>
+                    }
+                }
+            </div>
+            <div class="book-description">
+                @book.Book.Description
+            </div>
+        </div>
+    }
+</div>
+
+<script src="~/Scripts/MarkAsRead.js"></script>

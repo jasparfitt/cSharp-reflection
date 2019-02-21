@@ -1,0 +1,19 @@
+﻿@model BookWyrm.ViewModels.HomeIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Index</h1>
+
+<h2>New Challenges</h2>
+<div class="new-challenges">
+    @foreach(var challenge in Model.Challenges)
+    {
+        <div>
+            <a href="@Url.Action("Index", "Challenge", new { id = challenge.Id })"><h4>@challenge.Name</h4></a>
+            <div><emph>@challenge.NumBook Books</emph></div>
+            <p>@challenge.Description</p>
+        </div>
+    }
+</div>
