@@ -35,13 +35,15 @@ namespace BookWyrm.Controllers
         {
             var user = new User()
             {
-                UserName = viewModel.UserName,
-                Email = viewModel.Email
+                UserName = viewModel.Email,
+                Email = viewModel.Email,
+                Name = viewModel.Name
             };
             var result = await _userManager.CreateAsync(user, viewModel.Password);
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user.Id, "User");
                 await _loginManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 return RedirectToAction("Index", "Home");
             }
@@ -50,7 +52,7 @@ namespace BookWyrm.Controllers
             {
                 ModelState.AddModelError("", error);
             }
-            return null;
+            return View(viewModel);
         }
     }
 }

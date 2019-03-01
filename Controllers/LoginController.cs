@@ -1,5 +1,6 @@
 ﻿using BookWyrm.Shared.Security;
 using BookWyrm.ViewModels;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;

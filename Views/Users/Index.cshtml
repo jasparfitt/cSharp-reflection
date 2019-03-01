@@ -1,0 +1,25 @@
+﻿@model BookWyrm.ViewModels.UsersIndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Promote User To Creator</h2>
+@Html.ValidationSummary("The following errors were found:", new { @class = "alert alert-danger" })
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.LabelFor(m => m.UserName)
+    @Html.TextBoxFor(m => m.UserName)
+
+    <input type="submit" value="Promote" formaction="/Promote" />
+}
+
+<h2>Demote Creator To User</h2>
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.LabelFor(m => m.UserName)
+    @Html.TextBoxFor(m => m.UserName)
+
+    <input type="submit" value="Demote" formaction="/Demote" />
+}
+
+

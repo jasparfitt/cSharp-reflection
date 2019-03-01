@@ -1,0 +1,28 @@
+﻿@model BookWyrm.ViewModels.AddIndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Not Implemented</h1>
+<h2>Add New Challenge</h2>
+@using (Html.BeginForm())
+{
+<div id="input-holder">
+    @Html.LabelFor(m => m.Challenge.Name)
+    @Html.TextBoxFor(m => m.Challenge.Name)
+
+    @Html.LabelFor(m => m.Challenge.Description)
+    @Html.TextBoxFor(m => m.Challenge.Description)
+
+    @Html.LabelFor(m => m.ChallengeBooks)
+    <div class="book-input" id="book-1">
+        @Html.DropDownListFor(m => m.ChallengeBooks, Model.Books)
+    </div>
+</div>
+
+    <span class="add-book" onclick="newBook()">+ New Book</span>
+
+    <input type="submit" value="Add Challenge"/>
+}
+
+<script src="~/Scripts/AddBook.js"></script>

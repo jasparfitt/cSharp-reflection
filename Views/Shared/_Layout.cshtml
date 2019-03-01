@@ -16,12 +16,45 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        @Html.ActionLink("Log In", "Index", "Login")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Register", "Index", "Register")
-                    </li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>
+                            @Html.ActionLink("My Page", "Index", "Profile")
+                        </li>
+                        <li>
+                            @using (Html.BeginForm("LogOut", "Index", FormMethod.Post, new { @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <button type="submit" formaction="/LogOut">
+                                    Log Out
+                                </button>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Log In", "Index", "Login")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Register", "Index", "Register")
+                        </li>
+                    }
+                    @if (ViewBag.Role == "Admin")
+                    {
+                        <li>
+                            @Html.ActionLink("Users", "Index", "Users")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Add", "Index", "Add")
+                        </li>
+                    }
+                    else if (ViewBag.Role == "Creator")
+                    {
+                        <li>
+                            @Html.ActionLink("Add", "Index", "Add")
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

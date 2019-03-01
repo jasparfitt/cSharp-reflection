@@ -16,3 +16,66 @@ textarea {
     max-width: 280px;
 }
 
+.disabled {
+    background-color: grey;
+}
+
+.challenge-icon {
+    height: 200px;
+    width: 200px;
+}
+
+.badge-icon {
+    height: 100px;
+    width: 100px;
+}
+
+.to-be-striked{
+    position: relative;
+    display: inline-block;
+    margin-right: auto;
+}
+
+.to-be-striked:after {
+    transform: scaleX(0);
+    transform-origin: center right;
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    box-shadow: 0 1px rgba(255,255,255,0.6);
+    margin-top: -0.7em;
+    background: black;
+}
+
+.strike-through:after {
+    transform-origin: center left;
+    transition: transform 0.5s cubic-bezier(.55, 0, .1, 1);
+    transform: scaleX(1);
+}
+
+.book-content {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
+.disable-div::after {
+    content: "";
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.book-input {
+    position: relative;
+}
+
+.disable-input {
+    border: none;
+}
+

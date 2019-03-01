@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BookWyrm.Shared.Data;
+using BookWyrm.Shared.Security;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +12,12 @@ namespace BookWyrm.Controllers
     [Authorize]
     public class ReadController : Controller
     {
-        public ReadController()
+        private ApplicationUserManager _userManager;
+        private BookRepository _bookRepository = null;
+        public ReadController(BookRepository bookRepository, ApplicationUserManager userManager)
         {
-
+            _bookRepository = bookRepository;
+            _userManager = userManager;
         }
 
         [HttpPost]
@@ -22,7 +28,17 @@ namespace BookWyrm.Controllers
                 return;
             }
 
-            
+            var userName = User.Identity.GetUserName();
+            var user = _userManager.Users.Where(u => u.UserName == userName).SingleOrDefault();
+
+            if (_bookRepository.GetReadStatus((int)id, user))
+            {
+                _bookRepository.MarkAsUnread((int)id, user);
+            }
+            else
+            {
+                _bookRepository.MarkAsRead((int)id, user);
+            }
         }
     }
 }
