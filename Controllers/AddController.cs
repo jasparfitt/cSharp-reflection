@@ -31,13 +31,23 @@ namespace BookWyrm.Controllers
             }
             var viewModel = new AddIndexViewModel();
             viewModel.Init(_bookRepository);
-
             return View(viewModel);
         }
 
         [HttpPost]
         public ActionResult Index(AddIndexViewModel viewModel)
         {
+            var userRole = GetUserRole();
+            if (userRole != "Admin" && userRole != "Creator")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+            if (!ModelState.IsValid)
+            {
+                viewModel.Init(_bookRepository);
+
+                return View(viewModel);
+            }
             _challengeRepository.Add(viewModel.Challenge, viewModel.ChallengeBooks);
             return RedirectToAction("Index", "Home");
         }

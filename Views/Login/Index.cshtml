@@ -8,7 +8,11 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary("The following errors were found:", new { @class = "alert alert-danger" })
+    if (true)
+    {
+        @Html.ValidationSummary("The following errors were found:", new { @class = "alert alert-danger" })
+    }
+
 
     <div class="row">
 

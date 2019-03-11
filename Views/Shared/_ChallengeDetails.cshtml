@@ -27,6 +27,11 @@ else
         {
             <input type="submit" value="Start Challenge" formaction="/challenge"/>
         }
+
+        if(ViewBag.Role == "Admin" || ViewBag.Role == "Creator")
+        {
+            <input type="submit" value="Delete" onclick="confirmDelete(event)" formaction="/deletechallenge"/>
+        }
     }
 }
 
@@ -95,3 +100,4 @@ else
     </div>
 
 <script src="~/Scripts/MarkAsRead.js"></script>
+<script src="~/Scripts/DeleteConfirm.js"></script>

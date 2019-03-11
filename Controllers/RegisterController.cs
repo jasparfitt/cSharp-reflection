@@ -33,6 +33,11 @@ namespace BookWyrm.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(RegisterIndexViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             var user = new User()
             {
                 UserName = viewModel.Email,
@@ -52,6 +57,7 @@ namespace BookWyrm.Controllers
             {
                 ModelState.AddModelError("", error);
             }
+
             return View(viewModel);
         }
     }

@@ -61,6 +61,10 @@ textarea {
     align-content: flex-start;
 }
 
+.disable-div {
+    position: relative;
+}
+
 .disable-div::after {
     content: "";
     position: absolute;
@@ -76,6 +80,7 @@ textarea {
 }
 
 .disable-input {
+    position: relative;
     border: none;
 }
 

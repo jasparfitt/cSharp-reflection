@@ -1,4 +1,5 @@
-﻿@model BookWyrm.ViewModels.AddIndexViewModel
+﻿
+@model BookWyrm.ViewModels.AddIndexViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -7,20 +8,29 @@
 <h2>Add New Challenge</h2>
 @using (Html.BeginForm())
 {
-<div id="input-holder">
-    @Html.LabelFor(m => m.Challenge.Name)
-    @Html.TextBoxFor(m => m.Challenge.Name)
+    <div id="input-holder">
+        @Html.LabelFor(m => m.Challenge.Name)
+        @Html.TextBoxFor(m => m.Challenge.Name)
 
-    @Html.LabelFor(m => m.Challenge.Description)
-    @Html.TextBoxFor(m => m.Challenge.Description)
+        @Html.LabelFor(m => m.Challenge.Description)
+        @Html.TextBoxFor(m => m.Challenge.Description)
 
-    @Html.LabelFor(m => m.ChallengeBooks)
-    <div class="book-input" id="book-1">
-        @Html.DropDownListFor(m => m.ChallengeBooks, Model.Books)
+        @Html.LabelFor(m => m.ChallengeBooks)
+        @if (Model.ChallengeBooks != null)
+        {
+            foreach (var Book in Model.ChallengeBooks)
+            {
+                <div class="book-input disable-div" id="">
+                    @Html.DropDownListFor(m => m.ChallengeBooks, Model.Sort(Book), new { @class = "disable-input", @tabindex="-1"})
+                </div>
+            }
+        }
+        <div class="book-input" id="book-active">
+            @Html.DropDownListFor(m => m.ChallengeBooks, Model.BooksSelectList)
+        </div>
     </div>
-</div>
 
-    <span class="add-book" onclick="newBook()">+ New Book</span>
+    <button class="add-book" onclick="newBook(event)">+ Book</button>
 
     <input type="submit" value="Add Challenge"/>
 }

@@ -1,0 +1,20 @@
+﻿@model BookWyrm.ViewModels.AddBookIndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Add Book</h2>
+@using (Html.BeginForm())
+{
+<div>
+    @Html.LabelFor(m => m.Title)
+    @Html.TextBoxFor(m => m.Title)
+
+    @Html.LabelFor(m => m.Authors)
+    @Html.TextBoxFor(m => m.Authors)
+
+    <input type="submit" value="Submit" />
+</div>
+}
+
+

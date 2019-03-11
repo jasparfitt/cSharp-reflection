@@ -46,13 +46,19 @@
                             @Html.ActionLink("Users", "Index", "Users")
                         </li>
                         <li>
-                            @Html.ActionLink("Add", "Index", "Add")
+                            @Html.ActionLink("Add Challenge", "Index", "Add")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Add Book", "Index", "AddBook")
                         </li>
                     }
                     else if (ViewBag.Role == "Creator")
                     {
                         <li>
-                            @Html.ActionLink("Add", "Index", "Add")
+                            @Html.ActionLink("Add Challenge", "Index", "Add")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Add Book", "Index", "AddBook")
                         </li>
                     }
                 </ul>
