@@ -17,6 +17,7 @@ namespace BookWyrm.Controllers
         // GET: Users
         public ActionResult Index(string msg)
         {
+            ViewBag.msg = new List<string>();
             switch (msg)
             {
                 case "err-admin":
@@ -32,10 +33,10 @@ namespace BookWyrm.Controllers
                     ModelState.AddModelError("User", "This account is already a user");
                     break;
                 case "msg-promote-success":
-                    ModelState.AddModelError("User", "Account promoted to creator");
+                    ViewBag.msg.Add("Account promoted to creator");
                     break;
                 case "msg-demote-success":
-                    ModelState.AddModelError("User", "Account demoted to user");
+                    ViewBag.msg.Add("Account demoted to user");
                     break;
                 default:
                     break;

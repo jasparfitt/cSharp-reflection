@@ -23,15 +23,39 @@ namespace BookWyrm.Controllers
         }
 
         // GET: Challenges
-        public ActionResult Index()
+        public ActionResult Index(int? id, string msg)
         {
+            switch (msg)
+            {
+                case "unknown":
+                    ModelState.AddModelError("unknown", "An unknown error occured.");
+                    break;
+                default:
+                    break;
+            }
             GetUserRole();
+            var pageNum = id;
+            if (pageNum == null)
+            {
+                pageNum = 1;
+            }
 
-            List<Challenge> challenges = _challengesRepository.GetList();
+            int pageMax = _challengesRepository.CountAllPages();
+
+            if (pageNum < 1 || pageNum > pageMax)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            List<Challenge> challenges = _challengesRepository.GetNewestList((int)pageNum);
+            
+            
 
             var viewModel = new HomeIndexViewModel()
             {
-                Challenges = challenges
+                Challenges = challenges,
+                PageNum = (int)pageNum,
+                PageMax = pageMax
             };
 
             return View(viewModel);

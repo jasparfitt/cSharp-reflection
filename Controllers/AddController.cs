@@ -38,16 +38,34 @@ namespace BookWyrm.Controllers
         public ActionResult Index(AddIndexViewModel viewModel)
         {
             var userRole = GetUserRole();
+
             if (userRole != "Admin" && userRole != "Creator")
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
+
+            var newChallengeBooks = new List<int>();
+            foreach (var book in viewModel.ChallengeBooks)
+            {
+                if (book != 0)
+                {
+                    newChallengeBooks.Add(book);
+                }
+            }
+
+            viewModel.ChallengeBooks = newChallengeBooks;
+
+            if (viewModel.ChallengeBooks.Count() < 1)
+            {
+                ModelState.AddModelError("No Books", "A challenge must have at least 1 book.");
+            }
+
             if (!ModelState.IsValid)
             {
                 viewModel.Init(_bookRepository);
-
                 return View(viewModel);
             }
+
             _challengeRepository.Add(viewModel.Challenge, viewModel.ChallengeBooks);
             return RedirectToAction("Index", "Home");
         }

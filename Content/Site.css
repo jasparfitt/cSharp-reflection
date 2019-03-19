@@ -16,13 +16,14 @@ textarea {
     max-width: 280px;
 }
 
-.disabled {
-    background-color: grey;
+.btn.disabled {
+    pointer-events: unset !important;
+    cursor: pointer !important;
 }
 
 .challenge-icon {
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
 }
 
 .badge-icon {
@@ -84,3 +85,103 @@ textarea {
     border: none;
 }
 
+.validation-summary-valid {
+    display: none;
+}
+
+.log-out-btn {
+    background: transparent;
+    border: none;
+    color: #999;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.challenge-panel {
+    margin-top: 2rem;
+}
+
+.challenge-book {
+    display: grid !important;
+    grid-template-columns: 50px 50px auto;
+}
+
+.read-btn {
+    grid-column: 1;
+    margin: auto;
+}
+
+.order-num {
+    grid-column: 2;
+    margin: auto;
+}
+
+.book-content {
+    grid-column: 3;
+}
+
+.challenge-heading {
+    display: grid !important;
+    grid-template-columns: 100px auto;
+}
+
+.challenge-image {
+    grid-column: 1;
+}
+
+.challenge-info {
+    grid-column: 2;
+    margin-left: 2rem;
+}
+
+.book-hide {
+    visibility: hidden;
+    position: absolute;
+}
+
+.completed-container {
+    display: flex;
+}
+
+.completed-challenge {
+    flex: 150px;
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.badge-icon {
+    margin: 0 auto;
+}
+
+.badge-title {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+}
+
+li.disabled a {
+    background-color: lightgray !important;
+}
+
+.navbar {
+    background-color: darkred !important;
+    border: none !important;
+    
+}
+
+    html .navbar .navbar-nav li a {
+        color: rgba(255,255,255, 0.75);
+    }
+
+    html .navbar .navbar-brand {
+        color: rgba(255,255,255, 0.75);
+    }

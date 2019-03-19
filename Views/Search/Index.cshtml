@@ -1,0 +1,17 @@
+﻿@model BookWyrm.ViewModels.SearchIndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Search For: @Model.Search</h2>
+<div class="search-results">
+    @if (Model.Challenges.Count() < 1)
+    {
+        <div>
+            No challenges found
+        </div>
+    }
+    @Html.Partial("_ListOfChallenges")
+</div>
+
+

@@ -23,8 +23,19 @@ namespace BookWyrm.Controllers
             _userRepository = userRepository;
         }
 
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, string msg)
         {
+            switch (msg)
+            {
+                case "not-all":
+                    ModelState.AddModelError("not-all", "You can't complete a challenge without marking all books as read.");
+                    break;
+                case "no-start":
+                    ModelState.AddModelError("no-start", "You can't start a challenge that you have marked as completed.");
+                    break;
+                default:
+                    break;
+            }
             GetUserRole();
 
             if (id == null)
@@ -32,6 +43,11 @@ namespace BookWyrm.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            if (id == -1)
+            {
+                id = _challengesRepository.GetRandomId();
+                return RedirectToAction("Index", "Challenge", new { id = id });
+            }
             var userName = User.Identity.GetUserName();
             var currentChallengeId = _userRepository.GetActiveChallengeId(userName);
 
@@ -58,20 +74,26 @@ namespace BookWyrm.Controllers
         public ActionResult Index(ChallengeChangeViewModel viewModel)
         {
             var userName = User.Identity.GetUserName();
+            string msg = null;
+
             if(_userRepository.ChallengeIsCompleted(viewModel.Id, userName))
             {
-                ModelState.AddModelError("Completed", "You cannot start a challenge that you've already completed");
-                return RedirectToAction("Index", viewModel.Return, new { id = viewModel.Id });
+                 msg = "no-start";
             }
-            _userRepository.StartChallenge(viewModel.Id, userName);
+            else
+            {
+                _userRepository.StartChallenge(viewModel.Id, userName);
+            }
+            
+
             switch (viewModel.Return)
             {
                 case "Profile":
-                    return RedirectToAction("Index",viewModel.Return);
+                    return RedirectToAction("Index", viewModel.Return, new { msg = msg });
                 case "Challenge":
-                    return RedirectToAction("Index", viewModel.Return, new { id = viewModel.Id });
+                    return RedirectToAction("Index", viewModel.Return, new { id = viewModel.Id, msg = msg });
                 default:
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home", new { msg = "unknown" });
             }
         }
     }

@@ -46,6 +46,7 @@ namespace BookWyrm.Controllers
                 case SignInStatus.Success:
                     return RedirectToAction("Index", "Home");
                 case SignInStatus.Failure:
+                    ModelState.AddModelError("Incorrect Login","Email or password is incorrect");
                     return View(viewModel);
                 default:
                     throw new Exception("Unexpected Log In status");

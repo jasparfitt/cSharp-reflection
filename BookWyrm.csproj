@@ -174,6 +174,7 @@
     <Compile Include="Controllers\ReadController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RemoveChallengeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -186,9 +187,11 @@
     <Compile Include="ViewModels\ChallengeDetailsViewModel.cs" />
     <Compile Include="ViewModels\ChallengeIndexViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
+    <Compile Include="ViewModels\ListOfChallengesViewModel.cs" />
     <Compile Include="ViewModels\LoginIndexViewModel.cs" />
     <Compile Include="ViewModels\ProfileIndexViewModel.cs" />
     <Compile Include="ViewModels\RegisterIndexViewModel.cs" />
+    <Compile Include="ViewModels\SearchIndexViewModel.cs" />
     <Compile Include="ViewModels\UsersIndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +214,8 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Add\Index.cshtml" />
     <Content Include="Views\AddBook\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Shared\_ListOfChallenges.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -6,13 +6,13 @@ using System.Web;
 
 namespace BookWyrm.ViewModels
 {
-    public class HomeIndexViewModel : ListOfChallengesViewModel
+    public class SearchIndexViewModel : ListOfChallengesViewModel
     {
         public override string Page
         {
             get
             {
-                return "Home";
+                return "Search";
             }
             set { }
         }

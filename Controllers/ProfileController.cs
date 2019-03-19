@@ -25,8 +25,19 @@ namespace BookWyrm.Controllers
             _userRepository = userRepository;
         }
         // GET: Profile
-        public ActionResult Index()
+        public ActionResult Index(string msg)
         {
+            switch(msg)
+            {
+                case "not-all":
+                    ModelState.AddModelError("not-all", "You can't complete a challenge without marking all books as read.");
+                    break;
+                case "no-start":
+                    ModelState.AddModelError("no-start", "You can't start a challenge that you have marked as completed.");
+                    break;
+                default:
+                    break;
+            }
             GetUserRole();
 
             var userName = User.Identity.GetUserName();
@@ -53,23 +64,25 @@ namespace BookWyrm.Controllers
         public ActionResult Index(ChallengeChangeViewModel viewModel) 
         {
             var userName = User.Identity.GetUserName();
+            string msg = null;
+
             if(_userRepository.AllBooksAreRead(viewModel.Id, userName))
             {
                 _userRepository.CompleteChallenge(viewModel.Id, userName);
             }
             else
             {
-                ModelState.AddModelError("NoBooksRead", "All books must be marked as read before completing a challenge");
+                msg = "not-all";
             }
             
             switch (viewModel.Return)
             {
                 case "Profile":
-                    return RedirectToAction("Index", viewModel.Return);
+                    return RedirectToAction("Index", viewModel.Return, new { msg = msg });
                 case "Challenge":
-                    return RedirectToAction("Index", viewModel.Return, new { id = viewModel.Id });
+                    return RedirectToAction("Index", viewModel.Return, new { id = viewModel.Id, msg = msg });
                 default:
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home", new { msg = "unknown" });
             }
         }
     }

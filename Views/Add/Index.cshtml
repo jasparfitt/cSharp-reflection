@@ -4,35 +4,48 @@
     ViewBag.Title = "Index";
 }
 
-<h1>Not Implemented</h1>
+
+
 <h2>Add New Challenge</h2>
+@Html.ValidationSummary("The following errors were found:", new { @class = "alert alert-danger" })
 @using (Html.BeginForm())
 {
-    <div id="input-holder">
-        @Html.LabelFor(m => m.Challenge.Name)
-        @Html.TextBoxFor(m => m.Challenge.Name)
+    <div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Challenge.Name, new { placeholder = "Name", @class = "form-control" })
+        </div>
 
-        @Html.LabelFor(m => m.Challenge.Description)
-        @Html.TextBoxFor(m => m.Challenge.Description)
+        <div class="form-group">
+            @Html.TextAreaFor(m => m.Challenge.Description, new { placeholder = "Description", @class = "form-control" })
+        </div>
 
-        @Html.LabelFor(m => m.ChallengeBooks)
-        @if (Model.ChallengeBooks != null)
-        {
-            foreach (var Book in Model.ChallengeBooks)
+        <div class="book-hide" id="">
+            @Html.DropDownListFor(m => m.ChallengeBooks, Model.BooksSelectList, "-- Select a Book --", new { @class = "form-control" })
+        </div>
+
+        <div id="input-holder" class="form-group">
+            @Html.LabelFor(m => m.ChallengeBooks)
+            @if (Model.ChallengeBooks != null)
             {
-                <div class="book-input disable-div" id="">
-                    @Html.DropDownListFor(m => m.ChallengeBooks, Model.Sort(Book), new { @class = "disable-input", @tabindex="-1"})
-                </div>
+                foreach (var Book in Model.ChallengeBooks)
+                {
+                    if (Book != 0)
+                    {
+                        <div class="book-input disable-div" id="">
+                            @Html.DropDownListFor(m => m.ChallengeBooks, Model.Sort(Book), new { @class = "form-control", @readonly = true, @tabindex = -1 })
+                        </div>
+                    }
+                }
             }
-        }
-        <div class="book-input" id="book-active">
-            @Html.DropDownListFor(m => m.ChallengeBooks, Model.BooksSelectList)
+            <div class="book-input" id="book-active">
+                @Html.DropDownListFor(m => m.ChallengeBooks, Model.BooksSelectList, "-- Select a Book --", new { @class = "form-control" })
+            </div>
         </div>
     </div>
 
-    <button class="add-book" onclick="newBook(event)">+ Book</button>
+    <button class="add-book btn btn-default" onclick="newBook(event)">+ Book</button>
 
-    <input type="submit" value="Add Challenge"/>
+    <input type="submit" value="Add Challenge" class="btn btn-default" />
 }
 
 <script src="~/Scripts/AddBook.js"></script>

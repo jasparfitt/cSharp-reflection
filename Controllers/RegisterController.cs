@@ -55,7 +55,12 @@ namespace BookWyrm.Controllers
 
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                var displayError = error;
+                if (error.Substring(0, 4) == "Name")
+                {
+                    displayError = "Email" + error.Substring(4);
+                }
+                ModelState.AddModelError("", displayError);
             }
 
             return View(viewModel);

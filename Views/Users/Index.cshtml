@@ -3,23 +3,58 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Promote User To Creator</h2>
+<h1>Manage Accounts</h1>
+
 @Html.ValidationSummary("The following errors were found:", new { @class = "alert alert-danger" })
-@using (Html.BeginForm(FormMethod.Post))
-{
-    @Html.LabelFor(m => m.UserName)
-    @Html.TextBoxFor(m => m.UserName)
 
-    <input type="submit" value="Promote" formaction="/Promote" />
+@if (ViewBag.msg.Count > 0)
+{
+    <div class="info-box alert alert-info">
+        @foreach (string msg in ViewBag.msg)
+        {
+            @msg
+        }
+    </div>
 }
 
-<h2>Demote Creator To User</h2>
-@using (Html.BeginForm(FormMethod.Post))
-{
-    @Html.LabelFor(m => m.UserName)
-    @Html.TextBoxFor(m => m.UserName)
+    <div class="col-sm-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3>Promote User To Creator</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-inline"}))
+                {
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.UserName, new { placeholder = "Email", @class = "form-control" })
 
-    <input type="submit" value="Demote" formaction="/Demote" />
-}
+
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Promote" formaction="/Promote" />
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3>Demote Creator To User</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.UserName, new { placeholder = "Email", @class = "form-control" })
+                    </div>
+
+                    <input class="btn btn-default" type="submit" value="Demote" formaction="/Demote" />
+                }
+            </div>
+        </div>
+    </div>
+    
+
+
+
 
 

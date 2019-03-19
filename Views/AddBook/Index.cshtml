@@ -4,17 +4,20 @@
 }
 
 <h2>Add Book</h2>
+@Html.ValidationSummary("The following errors were found:", new { @class = "alert alert-danger" })
 @using (Html.BeginForm())
 {
-<div>
-    @Html.LabelFor(m => m.Title)
-    @Html.TextBoxFor(m => m.Title)
+    <div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Title, new { placeholder = "Title", @class = "form-control" })
+        </div>
 
-    @Html.LabelFor(m => m.Authors)
-    @Html.TextBoxFor(m => m.Authors)
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Authors, new { placeholder = "Author", @class = "form-control" })
+        </div>
 
-    <input type="submit" value="Submit" />
-</div>
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </div>
 }
 
 
